@@ -6,11 +6,14 @@ std::vector<int> RR::burstTime;
 std::vector<int> RR::waitTime;
 std::vector<int> RR::arrivalTime;
 std::vector<int> RR::tempBurstTime;
+std::vector<int> RR::responseTime;
+
 int QUANTUMS = 1;
-int timeRR = 10; //10-100
+int timeRR = 50; //10-100
 int ARRIVALTIME = 0;
 int totalWaitTime = 0;
 int totalTurnaroundTime = 0;
+int totalResponseTime = 0;
 //TODO: TEST WITH DIFFERENT TIME QUANTUMS, USE A VARIABLE FOR THIS
 
 
@@ -43,6 +46,7 @@ RR::RR(const std::string& inputfile){
         waitTime.push_back(0);
         arrivalTime.push_back(0);
         tempBurstTime.push_back(burst);
+        responseTime.push_back(0);
 
 
     }
@@ -57,26 +61,35 @@ void RR::calculateRoundRobin(){
     int n = processId.size();
     int i;
     bool done = true;
+    bool firstRun = true;
     while(done){
         bool empty = true;
         for(i = 0; i < n; i++){
 
-            if (tempBurstTime[i] > 0 ){
-                empty = false;
-            }
-
             if(tempBurstTime[i] > 0){
+                empty = false;
+                if (firstRun){
+                    responseTime[i] = total - arrivalTime[i];
+                }
+                
                 if(tempBurstTime[i] > timeRR){
                     total += timeRR;
                     tempBurstTime[i] -= timeRR;
                 }
+                
                 else{
                     total += tempBurstTime[i];
                     waitTime[i] = total - burstTime[i];
                     tempBurstTime[i] = 0;
                 }
+                
             }
         }
+
+        if(firstRun){
+            firstRun = false;
+        }
+
         if(empty){
             done = false;
         }
@@ -85,6 +98,7 @@ void RR::calculateRoundRobin(){
     for(int i = 0; i < n; i++){
         totalWaitTime += waitTime[i];
         totalTurnaroundTime += waitTime[i] + burstTime[i];
+        totalResponseTime += responseTime[i];
     }
 
 
@@ -92,7 +106,7 @@ void RR::calculateRoundRobin(){
 
 void RR::printResults(){
 
-    avgResponseTime = (double)totalWaitTime/processId.size();
+    avgResponseTime = (double)totalResponseTime/processId.size();
     avgTurnaroundTime = (double)totalTurnaroundTime/processId.size();
     avgWaitTime = (double)totalWaitTime/processId.size();
 
