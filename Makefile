@@ -24,7 +24,7 @@ rr:
 #clean by going into each directory and running make clean
 clean: 
 	@echo "cleaning up..."
-	@rm -rf fifo *.dSYM
+	@rm -rf fifo sfj rr *.dSYM
 	@echo "done"
 
 all:

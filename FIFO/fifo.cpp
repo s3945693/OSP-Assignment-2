@@ -17,27 +17,26 @@ FIFO::FIFO(const std::string& inputfile){
         exit(1);
     }
 
-    while (!in.eof()){
-        int id, burst;
-        std::string line;
-        //get the line
-        while (std::getline(in,line)){
-            
-            //get the id
-            std::string idstr = line.substr(0,line.find(","));
-            id = std::stoi(idstr);
-            //get the burst time
-            std::string burststr = line.substr(line.find(",")+1);
-            burst = std::stoi(burststr);
-
-            //append to respective vectors 
-            processId.push_back(id);
-            burstTime.push_back(burst);
-            waitTime.push_back(0);
-
-        }
+    int id, burst;
+    std::string line;
+    //get the line
+    while (std::getline(in,line)){
         
+        //get the id
+        std::string idstr = line.substr(0,line.find(","));
+        id = std::stoi(idstr);
+        //get the burst time
+        std::string burststr = line.substr(line.find(",")+1);
+        burst = std::stoi(burststr);
+
+        //append to respective vectors 
+        processId.push_back(id);
+        burstTime.push_back(burst);
+        waitTime.push_back(0);
+
     }
+        
+    
 
 }
 
@@ -88,8 +87,8 @@ void FIFO::calculateWaitTime(){
 void FIFO::printResults(){
 
     std::cout << "FIFO" << std::endl;
-    std::cout << "Average Wait Time: " << avgWaitTime << std::endl;
     std::cout << "Average Turnaround Time: " << avgTurnaroundTime << std::endl;
+    std::cout << "Average Wait Time: " << avgWaitTime << std::endl;
     std::cout << "Average Response Time: " << avgResponseTime << std::endl;
 
 }
