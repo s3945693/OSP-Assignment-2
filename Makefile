@@ -12,12 +12,12 @@ fifo:
 
 sfj:
 	@echo making sfj...
-	g++ -Wall -Werror -std=c++20 -g handledata.cpp -o ./SFJ/*.cpp -o sfj
+	g++ -Wall -Werror -std=c++20 -g ./ShortestFirstJob/*.cpp -o sfj
 	@echo "done"
 
 rr:
 	@echo making rr...
-	g++ -Wall -Werror -std=c++20 -g handledata.cpp -o ./RR/*.cpp -o rr
+	g++ -Wall -Werror -std=c++20 -g ./RoundRobin/*.cpp -o rr
 	@echo "done" 
 
 
