@@ -5,6 +5,8 @@ std::ifstream FIFO::in;
 std::vector<int> FIFO::waitTime;
 std::vector<int> FIFO::burstTime;
 std::vector<int> FIFO::processId;
+std::vector<int> FIFO::turnaroundTime;
+std::vector<int> FIFO::responseTime;
 
 FIFO::FIFO(const std::string& inputfile){
     
@@ -33,6 +35,8 @@ FIFO::FIFO(const std::string& inputfile){
         processId.push_back(id);
         burstTime.push_back(burst);
         waitTime.push_back(0);
+        turnaroundTime.push_back(0);
+        responseTime.push_back(0);
 
     }
         
@@ -42,15 +46,15 @@ FIFO::FIFO(const std::string& inputfile){
 
 void FIFO::calculateResponseTime(){
 
-    int waitTimeTotal = 0;
+    int responseTimeTotal = 0;
     for( std::vector<int>::size_type i = 1; i < burstTime.size(); i++){
-        waitTime[i] = burstTime[i-1]+waitTime[i-1];
+        responseTime[i] = burstTime[i-1]+waitTime[i-1];
     }
     for(std::vector<int>::size_type i = 0; i < waitTime.size(); i++){
-        waitTimeTotal += waitTime[i];
+        responseTimeTotal += responseTime[i];
     }
 
-    avgResponseTime = (double)waitTimeTotal/waitTime.size();
+    avgResponseTime = (double)responseTimeTotal/waitTime.size();
 
 
 }
@@ -61,6 +65,7 @@ void FIFO::calculateTurnaroundTime(){
 
     for (std::vector<int>::size_type i = 0; i < burstTime.size(); i++){
         totalTurnaroundTime += (burstTime[i]+waitTime[i]);
+        turnaroundTime[i] = burstTime[i]+waitTime[i];
     }
 
     avgTurnaroundTime = (double)totalTurnaroundTime/burstTime.size();

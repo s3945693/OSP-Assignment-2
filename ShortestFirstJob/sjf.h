@@ -18,6 +18,8 @@ class SFJ{
         static std::vector<int> processId;
         static std::vector<int> burstTime;
         static std::vector<int> waitTime;
+        static std::vector<int> turnaroundTime;
+        static std::vector<int> responseTime;
 
       
         SFJ(const std::string& inputfile);

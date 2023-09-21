@@ -7,6 +7,7 @@ std::vector<int> RR::waitTime;
 std::vector<int> RR::arrivalTime;
 std::vector<int> RR::tempBurstTime;
 std::vector<int> RR::responseTime;
+std::vector<int> RR::turnaroundTime;
 
 int QUANTUMS = 1;
 int timeRR = 50; //10-100
@@ -47,6 +48,7 @@ RR::RR(const std::string& inputfile){
         arrivalTime.push_back(0);
         tempBurstTime.push_back(burst);
         responseTime.push_back(0);
+        turnaroundTime.push_back(0);
 
 
     }
@@ -98,6 +100,7 @@ void RR::calculateRoundRobin(){
     for(int i = 0; i < n; i++){
         totalWaitTime += waitTime[i];
         totalTurnaroundTime += waitTime[i] + burstTime[i];
+        turnaroundTime[i] = waitTime[i] + burstTime[i];
         totalResponseTime += responseTime[i];
     }
 

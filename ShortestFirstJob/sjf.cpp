@@ -5,6 +5,8 @@ std::ifstream SFJ::in;
 std::vector<int> SFJ::waitTime;
 std::vector<int> SFJ::burstTime;
 std::vector<int> SFJ::processId;
+std::vector<int> SFJ::turnaroundTime;
+std::vector<int> SFJ::responseTime;
 
 SFJ::SFJ(const std::string& inputfile){
     
@@ -59,15 +61,15 @@ SFJ::SFJ(const std::string& inputfile){
 
 void SFJ::calculateResponseTime(){
 
-    int waitTimeTotal = 0;
+    int responseTimeTotal = 0;
     for( std::vector<int>::size_type i = 1; i < burstTime.size(); i++){
-        waitTime[i] = burstTime[i-1]+waitTime[i-1];
+        responseTime[i] = burstTime[i-1]+responseTime[i-1];
     }
     for(std::vector<int>::size_type i = 0; i < waitTime.size(); i++){
-        waitTimeTotal += waitTime[i];
+        responseTimeTotal += responseTime[i];
     }
 
-    avgResponseTime = (double)waitTimeTotal/waitTime.size();
+    avgResponseTime = (double)responseTimeTotal/waitTime.size();
 
 
 }
@@ -78,6 +80,7 @@ void SFJ::calculateTurnaroundTime(){
 
     for (std::vector<int>::size_type i = 0; i < burstTime.size(); i++){
         totalTurnaroundTime += (burstTime[i]+waitTime[i]);
+        turnaroundTime[i] = burstTime[i]+waitTime[i];
     }
 
     avgTurnaroundTime = (double)totalTurnaroundTime/burstTime.size();

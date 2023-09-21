@@ -21,6 +21,7 @@ class RR{
         static std::vector<int> arrivalTime;
         static std::vector<int> tempBurstTime;
         static std::vector<int> responseTime;
+        static std::vector<int> turnaroundTime;
 
       
         RR(const std::string& inputfile);

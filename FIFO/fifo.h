@@ -18,6 +18,8 @@ class FIFO{
         static std::vector<int> processId;
         static std::vector<int> burstTime;
         static std::vector<int> waitTime;
+        static std::vector<int> turnaroundTime;
+        static std::vector<int> responseTime;
 
       
         FIFO(const std::string& inputfile);
