@@ -35,6 +35,8 @@ SFJ::SFJ(const std::string& inputfile){
         processId.push_back(id);
         burstTime.push_back(burst);
         waitTime.push_back(0);
+        turnaroundTime.push_back(0);
+        responseTime.push_back(0);
 
     }
         
