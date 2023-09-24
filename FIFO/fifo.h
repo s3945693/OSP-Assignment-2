@@ -27,6 +27,7 @@ class FIFO{
         void calculateTurnaroundTime();
         void calculateResponseTime();
         void printResults();
+        bool isNumber(std::string s);
 
 };
 

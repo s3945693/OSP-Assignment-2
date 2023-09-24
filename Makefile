@@ -11,8 +11,8 @@ fifo:
 	@echo "done"
 
 sfj:
-	@echo making sfj...
-	g++ -Wall -Werror -std=c++20 -g ./ShortestFirstJob/*.cpp -o sfj
+	@echo making sjf...
+	g++ -Wall -Werror -std=c++20 -g ./ShortestFirstJob/*.cpp -o sjf
 	@echo "done"
 
 rr:

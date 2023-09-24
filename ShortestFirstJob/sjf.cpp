@@ -26,9 +26,17 @@ SFJ::SFJ(const std::string& inputfile){
         
         //get the id
         std::string idstr = line.substr(0,line.find(","));
+        if(!isNumber(idstr)){
+            std::cout << "Error: Process id must be a number" << std::endl;
+            exit(1);
+        }
         id = std::stoi(idstr);
-        //get the burst time
+        //get the burst timeRR
         std::string burststr = line.substr(line.find(",")+1);
+        if(!isNumber(burststr)){
+            std::cout << "Error: Burst time must be a number" << std::endl;
+            exit(1);
+        }
         burst = std::stoi(burststr);
 
         //append to respective vectors 
@@ -40,6 +48,7 @@ SFJ::SFJ(const std::string& inputfile){
 
     }
         
+    //sorting the array for shortest job first
     
     int pos,temp,i,j,n;
     n=burstTime.size();
@@ -131,4 +140,28 @@ void SFJ::printResults(){
     std::cout << "Average Wait Time: " << avgWaitTime << std::endl;
     std::cout << "Average Response Time: " << avgResponseTime << std::endl;
 
+}
+
+bool SFJ::isNumber(std::string s){
+    std::string::const_iterator it = s.begin();
+    char dot = '.';
+    int nb_dots = 0;
+    while (it != s.end()) 
+    {
+        if (*it == dot)
+        {
+            nb_dots++;
+            if (nb_dots>1)
+            {
+                break;
+            }
+        }   
+        else if (!isdigit(*it))
+        {
+            break;
+        } 
+
+        ++it;
+    }
+    return !s.empty() && s[0] != dot && it == s.end();
 }

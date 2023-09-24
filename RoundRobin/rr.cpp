@@ -8,9 +8,9 @@ std::vector<int> RR::arrivalTime;
 std::vector<int> RR::tempBurstTime;
 std::vector<int> RR::responseTime;
 std::vector<int> RR::turnaroundTime;
+int RR::timeRR;
 
 int QUANTUMS = 1;
-int timeRR = 50; //10-100
 int ARRIVALTIME = 0;
 int totalWaitTime = 0;
 int totalTurnaroundTime = 0;
@@ -18,11 +18,12 @@ int totalResponseTime = 0;
 //TODO: TEST WITH DIFFERENT TIME QUANTUMS, USE A VARIABLE FOR THIS
 
 
-RR::RR(const std::string& inputfile){
+RR::RR(const std::string& inputfile, int time){
 
     avgWaitTime = 0;
     avgTurnaroundTime = 0;
     avgResponseTime = 0;
+    timeRR = time;
     in.open(inputfile);
     if(!in){
         std::cout << "Error opening file" << std::endl;
@@ -36,9 +37,17 @@ RR::RR(const std::string& inputfile){
         
         //get the id
         std::string idstr = line.substr(0,line.find(","));
+        if(!isNumber(idstr)){
+            std::cout << "Error: Process id must be a number" << std::endl;
+            exit(1);
+        }
         id = std::stoi(idstr);
         //get the burst timeRR
         std::string burststr = line.substr(line.find(",")+1);
+        if(!isNumber(burststr)){
+            std::cout << "Error: Burst time must be a number" << std::endl;
+            exit(1);
+        }
         burst = std::stoi(burststr);
 
         //append to respective vectors 
@@ -64,8 +73,11 @@ void RR::calculateRoundRobin(){
     int i;
     bool done = true;
     bool firstRun = true;
+
+    //while loop to complete all processes
     while(done){
         bool empty = true;
+        //for loop to iterate through processes for one time quantum
         for(i = 0; i < n; i++){
 
             if(tempBurstTime[i] > 0){
@@ -136,4 +148,28 @@ void RR::printResults(){
     std::cout << "Average Wait Time: " << avgWaitTime << std::endl;
     std::cout << "Average Response Time: " << avgResponseTime << std::endl;
 
+}
+
+bool RR::isNumber(std::string s){
+    std::string::const_iterator it = s.begin();
+    char dot = '.';
+    int nb_dots = 0;
+    while (it != s.end()) 
+    {
+        if (*it == dot)
+        {
+            nb_dots++;
+            if (nb_dots>1)
+            {
+                break;
+            }
+        }   
+        else if (!isdigit(*it))
+        {
+            break;
+        } 
+
+        ++it;
+    }
+    return !s.empty() && s[0] != dot && it == s.end();
 }

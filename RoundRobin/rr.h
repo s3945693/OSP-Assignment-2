@@ -24,11 +24,13 @@ class RR{
         static std::vector<int> tempBurstTime;
         static std::vector<int> responseTime;
         static std::vector<int> turnaroundTime;
+        static int timeRR;
 
       
-        RR(const std::string& inputfile);
+        RR(const std::string& inputfile, int timeRR);
         void calculateRoundRobin();
         void printResults();
+        bool isNumber(std::string s);
 };
 
 #endif
