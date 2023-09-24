@@ -109,6 +109,24 @@ void SFJ::calculateWaitTime(){
 void SFJ::printResults(){
 
     std::cout << "SFJ" << std::endl;
+
+    std::cout << std::left << std::setw(15) << "Process ID" 
+              << std::setw(15) << "Burst Time" 
+              << std::setw(20) << "Turnaround Time" 
+              << std::setw(15) << "Waiting Time" 
+              << std::setw(15) << "Response Time" 
+              << std::endl;
+
+    // Iterate through the vectors and print values for each process
+    for (std::vector<int>::size_type i = 0; i < processId.size(); i++) {
+        std::cout << std::left << std::setw(15) << processId[i] 
+                  << std::setw(15) << burstTime[i] 
+                  << std::setw(20) << turnaroundTime[i]
+                  << std::setw(15) << waitTime[i] 
+                  << std::setw(15) << responseTime[i] 
+                  << std::endl;
+    }
+
     std::cout << "Average Turnaround Time: " << avgTurnaroundTime << std::endl;
     std::cout << "Average Wait Time: " << avgWaitTime << std::endl;
     std::cout << "Average Response Time: " << avgResponseTime << std::endl;

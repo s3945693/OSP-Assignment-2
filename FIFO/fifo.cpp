@@ -8,6 +8,7 @@ std::vector<int> FIFO::processId;
 std::vector<int> FIFO::turnaroundTime;
 std::vector<int> FIFO::responseTime;
 
+
 FIFO::FIFO(const std::string& inputfile){
     
     avgWaitTime = 0;
@@ -92,6 +93,25 @@ void FIFO::calculateWaitTime(){
 void FIFO::printResults(){
 
     std::cout << "FIFO" << std::endl;
+
+    //PRINT VALUES OF ALL PROCESS IDS AMD THEIR RESPECTIVE TIMES
+    std::cout << std::left << std::setw(15) << "Process ID" 
+              << std::setw(15) << "Burst Time" 
+              << std::setw(20) << "Turnaround Time" 
+              << std::setw(15) << "Waiting Time" 
+              << std::setw(15) << "Response Time" 
+              << std::endl;
+
+    // Iterate through the vectors and print values for each process
+    for (std::vector<int>::size_type i = 0; i < processId.size(); i++) {
+        std::cout << std::left << std::setw(15) << processId[i] 
+                  << std::setw(15) << burstTime[i] 
+                  << std::setw(20) << turnaroundTime[i]
+                  << std::setw(15) << waitTime[i] 
+                  << std::setw(15) << responseTime[i] 
+                  << std::endl;
+    }
+
     std::cout << "Average Turnaround Time: " << avgTurnaroundTime << std::endl;
     std::cout << "Average Wait Time: " << avgWaitTime << std::endl;
     std::cout << "Average Response Time: " << avgResponseTime << std::endl;

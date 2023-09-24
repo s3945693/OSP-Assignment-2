@@ -3,7 +3,7 @@
 #include <string>
 #include <queue>
 #include <vector>
-
+#include <iomanip>
 #ifndef FIFO_H
 #define FIFO_H
 
