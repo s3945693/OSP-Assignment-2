@@ -10,7 +10,7 @@ fifo:
 	g++ -Wall -Werror -std=c++20 -g ./FIFO/*.cpp -o fifo
 	@echo "done"
 
-sfj:
+sjf:
 	@echo making sjf...
 	g++ -Wall -Werror -std=c++20 -g ./ShortestFirstJob/*.cpp -o sjf
 	@echo "done"
@@ -27,8 +27,3 @@ clean:
 	@rm -rf fifo sjf rr *.dSYM
 	@echo "done"
 
-all:
-	$(MAKE) clean
-	$(MAKE) fifo
-	$(MAKE) sfj
-	$(MAKE) rr
