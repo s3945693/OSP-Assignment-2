@@ -1,7 +1,7 @@
 all: 
 	$(MAKE) clean
 	$(MAKE) fifo
-	$(MAKE) sfj
+	$(MAKE) sjf
 	$(MAKE) rr
 
 
